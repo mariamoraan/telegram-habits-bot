@@ -6,7 +6,7 @@ Source: https://github.com/python-telegram-bot/python-telegram-bot/blob/master/e
 import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import os
-from decouple import config
+from dotenv import load_dotenv
 PORT = int(os.environ.get('PORT', 5000))
 
 # Enable logging
@@ -14,7 +14,8 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
                     level=logging.INFO)
 
 logger = logging.getLogger(__name__)
-TOKEN = config('TOKEN')
+load_dotenv()
+TOKEN = os.getenv('TOKEN')
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
