@@ -6,7 +6,6 @@ Source: https://github.com/python-telegram-bot/python-telegram-bot/blob/master/e
 import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import os
-from dotenv import load_dotenv
 PORT = int(os.environ.get('PORT', 5000))
 
 # Enable logging
@@ -14,7 +13,6 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
                     level=logging.INFO)
 
 logger = logging.getLogger(__name__)
-load_dotenv()
 TOKEN = '5064593609:AAFCPZe1NZBxo9zuJUacAE8BIraGnhdAhGA'
 
 # Define a few command handlers. These usually take the two arguments update and
