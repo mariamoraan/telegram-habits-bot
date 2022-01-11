@@ -8,6 +8,18 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import os
 PORT = int(os.environ.get('PORT', 5000))
 
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+# Use the application default credentials
+cred = credentials.ApplicationDefault()
+firebase_admin.initialize_app(cred, {
+  'projectId': 'telegram-habits-bot',
+})
+
+db = firestore.client()
+
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -19,6 +31,10 @@ TOKEN = '5064593609:AAFCPZe1NZBxo9zuJUacAE8BIraGnhdAhGA'
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
     """Send a message when the command /start is issued."""
+    users_ref = db.collection(u'users')
+    docs = users_ref.stream()
+    for doc in docs:
+        update.message.reply_text(f'Hi {doc.to_doct()}!')
     user = update.message.from_user
     update.message.reply_text(f'Hi {user}!')
 
